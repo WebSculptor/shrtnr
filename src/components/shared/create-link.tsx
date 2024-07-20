@@ -30,6 +30,7 @@ import { QRCode } from "react-qrcode-logo";
 import { useFetch } from "@/hooks";
 import { createShortUrl } from "@/db/apiUrls";
 import { toast } from "sonner";
+import { IFetchHook } from "@/interface";
 
 export default function CreateLink({ children }: { children: any }) {
   const qrcodeRef = useRef<any>();
@@ -60,7 +61,7 @@ export default function CreateLink({ children }: { children: any }) {
     isLoading: isCreating,
     isError,
     data,
-  }: any = useFetch(createShortUrl, {
+  }: IFetchHook = useFetch(createShortUrl, {
     ...form.getValues(),
   });
 
@@ -104,7 +105,7 @@ export default function CreateLink({ children }: { children: any }) {
             {form.getValues("longUrl") ? (
               <QRCode
                 value={form.getValues("longUrl")}
-                size={70}
+                size={60}
                 ref={qrcodeRef}
               />
             ) : (

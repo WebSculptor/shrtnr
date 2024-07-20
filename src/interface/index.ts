@@ -22,8 +22,15 @@ export interface ICredential {
 }
 
 export interface IAuthProvider {
-  isFetchingUser: boolean;
+  isFetchingUser: boolean | null | undefined;
   isAuthenticated: boolean;
   credentials: ICredential | null;
   fetchUserFn: () => void;
+}
+
+export interface IFetchHook {
+  data?: any;
+  isLoading?: boolean | null | undefined | any;
+  isError?: string | null | any;
+  fn: (...args: any) => Promise<boolean>;
 }

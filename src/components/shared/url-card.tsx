@@ -62,12 +62,25 @@ export default function UrlCard({
             <QrCode className="size-5 sm:size-6 cursor-pointer" />
           )}
         </h1>
-        <h3 className="text-base font-normal text-initial my-1 flex items-center">
-          <PiLinkSimpleBold className="size-4 mr-2" />
-          shrtnr.vercel.app/
-          <span className="text-primary">
-            {url?.custom_url ? url?.custom_url : url?.short_url}
-          </span>
+
+        <h3 className="text-base font-normal text-initial my-1">
+          <Link
+            to={
+              import.meta.env.PROD
+                ? `https://${import.meta.env.VITE_PROJECT_DOMAIN}/${
+                    url?.custom_url ? url?.custom_url : url?.short_url
+                  }`
+                : `http://localhost:5173/${
+                    url?.custom_url ? url?.custom_url : url?.short_url
+                  }`
+            }
+            className="flex items-center">
+            <PiLinkSimpleBold className="size-4 mr-2" />
+            {import.meta.env.VITE_PROJECT_DOMAIN}/
+            <span className="text-primary">
+              {url?.custom_url ? url?.custom_url : url?.short_url}
+            </span>
+          </Link>
         </h3>
 
         <p className="text-xs flex-1 whitespace-pre-wrap line-clamp-1 text-muted-foreground">
@@ -86,10 +99,20 @@ export default function UrlCard({
             className="size-4 sm:size-5 cursor-pointer"
             onClick={() => {
               navigator.clipboard.writeText(
-                `https://shrtnr.vercel.app/${url?.short_url}`
+                `${
+                  import.meta.env.PROD
+                    ? `https://${import.meta.env.VITE_PROJECT_DOMAIN}/${
+                        url?.custom_url ? url?.custom_url : url?.short_url
+                      }`
+                    : `http://localhost:5173/${
+                        url?.custom_url ? url?.custom_url : url?.short_url
+                      }`
+                }`
               );
               toast.success(
-                `Copied "https://shrtnr.vercel.app/${url?.short_url}"`
+                `Copied "https://${import.meta.env.VITE_PROJECT_DOMAIN}/${
+                  url?.custom_url ? url?.custom_url : url?.short_url
+                }"`
               );
             }}
           />

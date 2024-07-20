@@ -42,3 +42,26 @@ export function getInitials(value: string) {
 
   return initials.join("");
 }
+
+export function checkAdBlocker() {
+  // Create an element to load an ad-related resource
+  const adBlockerTestElement = document.createElement("div");
+  adBlockerTestElement.innerHTML = "&nbsp;";
+  adBlockerTestElement.className = "adsbox";
+  adBlockerTestElement.style.position = "absolute";
+  adBlockerTestElement.style.top = "-9999px";
+
+  document.body.appendChild(adBlockerTestElement);
+
+  // Check if the element is hidden (which would indicate ad blocking)
+  setTimeout(() => {
+    if (adBlockerTestElement.offsetHeight === 0) {
+      // Ad blocker detected, prompt the user
+      alert(
+        "We have detected that you are using an ad blocker. Please disable it for a better experience."
+      );
+    }
+    // Remove the test element
+    document.body.removeChild(adBlockerTestElement);
+  }, 100);
+}

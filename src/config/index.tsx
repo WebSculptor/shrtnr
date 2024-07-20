@@ -12,10 +12,11 @@ import RequireAuth from "@/components/shared/require-auth";
 import { createBrowserRouter } from "react-router-dom";
 
 export const siteConfig = {
-  title: "Shrtnr",
+  title: "Shtnrr",
   description:
     "A fullstack url shortener created using React, Vite, Supabase, Typescript and also a chrome extension",
   icon: "/vite.svg",
+  url: `https://${import.meta.env.VITE_PROJECT_DOMAIN}`,
   author: {
     name: "Abdullahi Salihu",
     email: "abdullahisalihuinusa@gmail.com",

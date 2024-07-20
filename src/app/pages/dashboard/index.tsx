@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { Inbox } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import UrlCard from "@/components/shared/url-card";
+import { IFetchHook } from "@/interface";
 
 export default function DashboardPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,12 +27,12 @@ export default function DashboardPage() {
     fn: fetchUrlsFn,
     isLoading,
     data: urls,
-  }: any = useFetch(getUrls, credentials?.id);
+  }: IFetchHook = useFetch(getUrls, credentials?.id);
   const {
     fn: fetchClicksFn,
     isLoading: loadingClicks,
     data: clicks,
-  }: any = useFetch(
+  }: IFetchHook = useFetch(
     getClicksForUrls,
     urls?.map((url: any) => url?.id)
   );

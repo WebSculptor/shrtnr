@@ -81,3 +81,22 @@ export async function createShortUrl(
     throw Error(error);
   }
 }
+
+export async function getLongUrl(id: any) {
+  try {
+    const { data, error } = await supabase
+      .from("links")
+      .select("id, long_url")
+      .or(`short_url.eq.${id},custom_url.eq.${id}`)
+      .single();
+
+    if (error) {
+      console.error(error?.message);
+      throw new Error("Error fetching short link");
+    }
+
+    return data;
+  } catch (error: any) {
+    throw Error(error);
+  }
+}

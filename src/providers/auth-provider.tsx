@@ -1,6 +1,7 @@
 import { getCurrentUser } from "@/db/apiAuth";
 import { useFetch } from "@/hooks";
-import { IAuthProvider, ILayout } from "@/interface";
+import { IAuthProvider, IFetchHook, ILayout } from "@/interface";
+import { checkAdBlocker } from "@/lib/utils";
 import { createContext, useContext, useEffect } from "react";
 
 const initialState: IAuthProvider = {
@@ -17,15 +18,16 @@ export default function AuthProvider({ children }: ILayout) {
     data: credentials,
     fn: fetchUserFn,
     isLoading: isFetchingUser,
-  }: any = useFetch(getCurrentUser);
+  }: IFetchHook = useFetch(getCurrentUser);
 
   const isAuthenticated: boolean = credentials?.role === "authenticated";
 
   useEffect(() => {
     fetchUserFn();
+    checkAdBlocker();
   }, []);
 
-  const props = {
+  const props: IAuthProvider = {
     isFetchingUser,
     isAuthenticated,
     credentials,
