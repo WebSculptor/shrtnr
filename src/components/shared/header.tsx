@@ -45,7 +45,7 @@ export default function Header() {
   const selectedThemes = ["light", "dark", "system"];
 
   return (
-    <header className="w-full h-14 sm:h-16 bg-background/80 backdrop-blur-2xl sticky top-0 left-0 z-50">
+    <header className="w-full min-h-14 sm:min-h-16 bg-background/80 backdrop-blur-2xl sticky top-0 left-0 z-50 border-b">
       <Wrapper className="flex items-center justify-between gap-6 size-full">
         <Link className="text-lg font-bold" to="/">
           {siteConfig.title}
@@ -74,30 +74,20 @@ export default function Header() {
                 <DropdownMenuGroup>
                   <Link to="/dashboard">
                     <DropdownMenuItem>
-                      Dashboard
+                      Home
                       <DropdownMenuShortcut>⇧⌘D</DropdownMenuShortcut>
                     </DropdownMenuItem>
                   </Link>
-                  <DropdownMenuItem>
-                    Billing
-                    <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-                  </DropdownMenuItem>
-
                   <CreateLink>
                     <div className="relative flex cursor-pointer hover:bg-secondary items-center rounded-sm px-2 py-1.5 text-sm outline-none">
-                      New Url
+                      Create
                       <span className="ml-auto text-muted-foreground">
                         <Plus className="size-4" />
                       </span>
                     </div>
                   </CreateLink>
-                </DropdownMenuGroup>
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuGroup>
                   <DropdownMenuSub>
-                    <DropdownMenuSubTrigger>Theme Mode</DropdownMenuSubTrigger>
+                    <DropdownMenuSubTrigger>Theme</DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
                       <DropdownMenuSubContent className="transition-none">
                         {selectedThemes.map((thm: any) => (
@@ -113,6 +103,11 @@ export default function Header() {
                       </DropdownMenuSubContent>
                     </DropdownMenuPortal>
                   </DropdownMenuSub>
+                </DropdownMenuGroup>
+
+                <DropdownMenuSeparator />
+
+                <DropdownMenuGroup>
                   <DropdownMenuItem>
                     Settings
                     <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>

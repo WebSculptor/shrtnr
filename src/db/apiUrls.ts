@@ -100,3 +100,23 @@ export async function getLongUrl(id: any) {
     throw Error(error);
   }
 }
+
+export async function getUrlById({ id, userId }: { id: any; userId: string }) {
+  try {
+    const { data, error } = await supabase
+      .from("links")
+      .select("*")
+      .eq("id", id)
+      .eq("user_id", userId)
+      .single();
+
+    if (error) {
+      console.error(error?.message);
+      throw new Error("Short url not found");
+    }
+
+    return data;
+  } catch (error: any) {
+    throw Error(error);
+  }
+}

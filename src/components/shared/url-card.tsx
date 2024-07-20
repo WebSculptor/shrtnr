@@ -1,22 +1,12 @@
 import { deleteUrl } from "@/db/apiUrls";
 import { useFetch } from "@/hooks";
 import { formatDateString } from "@/lib/utils";
-import { Copy, Download, Loader, QrCode, Trash, X } from "lucide-react";
+import { Copy, Download, Loader, QrCode, Trash } from "lucide-react";
 import { LuClock3 } from "react-icons/lu";
 import { PiLinkSimpleBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "../ui/button";
+import DeleteUrl from "./delete-url";
 
 export default function UrlCard({
   url,
@@ -64,17 +54,7 @@ export default function UrlCard({
         </h1>
 
         <h3 className="text-base font-normal text-initial my-1">
-          <Link
-            to={
-              import.meta.env.PROD
-                ? `https://${import.meta.env.VITE_PROJECT_DOMAIN}/${
-                    url?.custom_url ? url?.custom_url : url?.short_url
-                  }`
-                : `http://localhost:5173/${
-                    url?.custom_url ? url?.custom_url : url?.short_url
-                  }`
-            }
-            className="flex items-center">
+          <Link to={`/link/${url?.id}`} className="flex items-center">
             <PiLinkSimpleBold className="size-4 mr-2" />
             {import.meta.env.VITE_PROJECT_DOMAIN}/
             <span className="text-primary">
@@ -104,7 +84,7 @@ export default function UrlCard({
                     ? `https://${import.meta.env.VITE_PROJECT_DOMAIN}/${
                         url?.custom_url ? url?.custom_url : url?.short_url
                       }`
-                    : `http://localhost:5173/${
+                    : `http://172.20.10.3:5173/${
                         url?.custom_url ? url?.custom_url : url?.short_url
                       }`
                 }`
@@ -122,74 +102,15 @@ export default function UrlCard({
               onClick={downloadQrCode}
             />
           )}
-          <Delete {...modalProps}>
+          <DeleteUrl {...modalProps}>
             {isDeletingUrl ? (
               <Loader className="size-4 sm:size-5 cursor-pointer" />
             ) : (
               <Trash className="size-4 sm:size-5 cursor-pointer" />
             )}
-          </Delete>
+          </DeleteUrl>
         </div>
       </div>
     </div>
-  );
-}
-
-function Delete({
-  children,
-  fetchUrlsFn,
-  deleteUrlFn,
-  isDeletingUrl,
-}: {
-  children: any;
-  url: any;
-  fetchUrlsFn: any;
-  deleteUrlFn: any;
-  isDeletingUrl: any;
-}) {
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild disabled={isDeletingUrl}>
-        {children}
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <div className="rounded-full bg-secondary size-20 mb-4 flex items-center justify-center">
-            <Trash className="size-8 text-muted-foreground" />
-          </div>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your url
-            and its data our database.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel
-            className="absolute top-2 right-2 p-0"
-            disabled={isDeletingUrl}
-            asChild>
-            <Button
-              className="rounded-full bg-transparent hover:bg-transparent border-none"
-              variant={"outline"}
-              size={"icon"}>
-              <X className="size-5" />
-            </Button>
-          </AlertDialogCancel>
-          <Button
-            className="flex-1 h-12 rounded-full"
-            disabled={isDeletingUrl}
-            onClick={async () => deleteUrlFn().then(() => fetchUrlsFn())}>
-            {isDeletingUrl ? (
-              <>
-                <Loader className="animate-spin mr-2" size={16} />
-                Please wait...
-              </>
-            ) : (
-              "Delete"
-            )}
-          </Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
   );
 }

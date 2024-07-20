@@ -61,3 +61,21 @@ export const storeClicks = async ({
     throw new Error("Error recording clicks");
   }
 };
+
+export async function getClicksFromUsl({ urlId }: { urlId: number }) {
+  try {
+    const { data, error } = await supabase
+      .from("clicks")
+      .select("*")
+      .eq("link_id", urlId);
+
+    if (error) {
+      console.error(error?.message);
+      throw new Error("Unable to load stats");
+    }
+
+    return data;
+  } catch (error: any) {
+    throw Error(error);
+  }
+}
