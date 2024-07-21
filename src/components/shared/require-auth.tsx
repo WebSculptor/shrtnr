@@ -1,10 +1,9 @@
-import { ILayout } from "@/interface";
 import { useAuth } from "@/providers/auth-provider";
 import { Loader } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function RequireAuth({ children }: ILayout) {
+export default function RequireAuth({ children }: { children: any }) {
   const navigate = useNavigate();
 
   const { isAuthenticated, isFetchingUser } = useAuth();

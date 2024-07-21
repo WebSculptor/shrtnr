@@ -58,6 +58,7 @@ export const pageRoutes = createBrowserRouter([
         path: "/link/:id",
         element: (
           <RequireAuth>
+            {/* @ts-ignore */}
             <LinkPage />
           </RequireAuth>
         ),
