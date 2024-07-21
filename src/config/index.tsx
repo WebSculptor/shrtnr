@@ -2,7 +2,6 @@ import {
   AppLayout,
   AuthenticationPage,
   DashboardPage,
-  LandingPage,
   LinkPage,
   RedirectLinkPage,
   SignInPage,
@@ -30,7 +29,17 @@ export const pageRoutes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <LandingPage />,
+        element: <AuthenticationPage />,
+        children: [
+          {
+            index: true,
+            element: <SignInPage />,
+          },
+          {
+            path: "/auth/sign-up",
+            element: <SignUpPage />,
+          },
+        ],
       },
       {
         path: "/dashboard",

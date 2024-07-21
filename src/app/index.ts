@@ -1,7 +1,6 @@
 import {
   AuthenticationPage,
   DashboardPage,
-  LandingPage,
   LinkPage,
   RedirectLinkPage,
   SignInPage,
@@ -12,7 +11,6 @@ import AppLayout from "@/app/layouts/app-layout";
 export {
   AuthenticationPage,
   DashboardPage,
-  LandingPage,
   LinkPage,
   RedirectLinkPage,
   AppLayout,
